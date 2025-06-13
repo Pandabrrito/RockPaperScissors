@@ -16,79 +16,81 @@ public class App {
     public static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        Player player1;
-        Player player2;
+        boolean runGame = true;
+        while(runGame) {
+            Player player1;
+            Player player2;
 
-        System.out.println("Welcome to Rock, Paper, Scissors!");
-        System.out.println("Choose amount of lives!");
+            System.out.println("Welcome to Rock, Paper, Scissors!");
+            System.out.println("Choose amount of lives!");
 
-        int chosenLife = numberValidator(0, 99);
+            int chosenLife = numberValidator(0, 99);
 
-        System.out.println("Choose game mode:");
-        System.out.println("1 - Classic");
-        System.out.println("2 - RPS-7");
-        System.out.println("3 - RPS-9");
-        System.out.println("4 - RPS-11");
-        System.out.println("5 - RPS-15");
+            System.out.println("Choose game mode:");
+            System.out.println("1 - Classic");
+            System.out.println("2 - RPS-7");
+            System.out.println("3 - RPS-9");
+            System.out.println("4 - RPS-11");
+            System.out.println("5 - RPS-15");
 
-        int availableMoves = 0;
-        switch (numberValidator(1, 5)) {
-            case 1 -> {
-                availableMoves = 3;
-                System.out.println("You chose Classic!");
+            int availableMoves = 0;
+            switch (numberValidator(1, 5)) {
+                case 1 -> {
+                    availableMoves = 3;
+                    System.out.println("You chose Classic!");
+                }
+                case 2 -> {
+                    availableMoves = 7;
+                    System.out.println("You chose RPS-7!");
+                }
+                case 3 -> {
+                    availableMoves = 9;
+                    System.out.println("You chose RPS-9!");
+                }
+                case 4 -> {
+                    availableMoves = 11;
+                    System.out.println("You chose RPS-11");
+                }
+                case 5 -> {
+                    availableMoves = 15;
+                    System.out.println("You chose RPS-15");
+                }
             }
-            case 2 -> {
-                availableMoves = 7;
-                System.out.println("You chose RPS-7!");
+
+            System.out.println("Please enter your name:");
+            player1 = new User(scanner.nextLine(), chosenLife);
+
+            System.out.println("Please choose your opponent:");
+            System.out.println("1 - Computer");
+            System.out.println("2 - Another Player");
+
+            if (numberValidator(1, 2) == 1) {
+                player2 = new Computer(chosenLife);
+                System.out.println("You chose Computer as your opponent!");
+            } else {
+                System.out.println("Please enter the name of the second player:");
+                player2 = new User(scanner.nextLine(), chosenLife);
+                System.out.println("You chose " + player2.getName() + " as your opponent!");
             }
-            case 3 -> {
-                availableMoves = 9;
-                System.out.println("You chose RPS-9!");
+
+            GameWatcher GameWatcher = new GameWatcher(player1, player2, availableMoves);
+
+            while (!GameWatcher.isGameDone()) {
+                GameWatcher.runRound();
+                if (!GameWatcher.isGameDone()) {
+                    System.out.println("Press any key to continue to the next round...");
+                    scanner.nextLine();
+                }
             }
-            case 4 -> {
-                availableMoves = 11;
-                System.out.println("You chose RPS-11");
+
+            GameWatcher.finalResults();
+
+            System.out.println("\nWant to play again? (y/n)");
+            String answer = scanner.nextLine().toLowerCase();
+            if (answer.equals("n") || answer.equals("no")) {
+                runGame = false;
+                System.out.println("Thanks for playing! Goodbye!");// change that to loop for everything, true until No
             }
-            case 5 -> {
-                availableMoves = 15;
-                System.out.println("You chose RPS-15");
-            }
-        }
-
-        System.out.println("Please enter your name:");
-        player1 = new User(scanner.nextLine(), chosenLife);
-
-        System.out.println("Please choose your opponent:");
-        System.out.println("1 - Computer");
-        System.out.println("2 - Another Player");
-
-        if (numberValidator(1, 2) == 1) {
-            player2 = new Computer(chosenLife);
-            System.out.println("You chose Computer as your opponent!");
-        } else {
-            System.out.println("Please enter the name of the second player:");
-            player2 = new User(scanner.nextLine(), chosenLife);
-            System.out.println("You chose " + player2.getName() + " as your opponent!");
-        }
-
-        GameWatcher GameWatcher = new GameWatcher(player1, player2, availableMoves);
-
-        while (!GameWatcher.isGameDone()) {
-            GameWatcher.runRound();
-            if (!GameWatcher.isGameDone()) {
-                System.out.println("Press any key to continue to the next round...");
-                scanner.nextLine();
-            }
-        }
-
-        GameWatcher.finalResults();
-
-        System.out.println("\n Want to play again? (y/n)");
-        String answer = scanner.nextLine().toLowerCase();
-        if (answer.equals("y") || answer.equals("yes")) {
-            main(args); // change that to loop for everything, true until No
-        } else {
-            System.out.println("Thanks for playing! Goodbye!");
         }
 
     }

@@ -28,9 +28,11 @@ public class App {
         System.out.println("1 - Classic");
         System.out.println("2 - RPS-7");
         System.out.println("3 - RPS-9");
+        System.out.println("4 - RPS-11");
+        System.out.println("5 - RPS-15");
 
         int availableMoves = 0;
-        switch (numberValidator(1, 3)) {
+        switch (numberValidator(1, 5)) {
             case 1 -> {
                 availableMoves = 3;
                 System.out.println("You chose Classic!");
@@ -42,6 +44,14 @@ public class App {
             case 3 -> {
                 availableMoves = 9;
                 System.out.println("You chose RPS-9!");
+            }
+            case 4 -> {
+                availableMoves = 11;
+                System.out.println("You chose RPS-11");
+            }
+            case 5 -> {
+                availableMoves = 15;
+                System.out.println("You chose RPS-15");
             }
         }
 

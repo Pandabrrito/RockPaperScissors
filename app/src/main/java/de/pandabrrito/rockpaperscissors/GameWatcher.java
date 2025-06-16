@@ -7,9 +7,9 @@ import java.util.List;
 
 public class GameWatcher {
 
-    private Player player1;
-    private Player player2;
-    private int gamemode;
+    private final Player player1;
+    private final Player player2;
+    private final int gamemode;
 
     public GameWatcher(Player p1, Player p2, int gm) {
         player1 = p1;
@@ -22,9 +22,6 @@ public class GameWatcher {
         int p2Choice = player2.getChoice(gamemode);
 
         List<Move> choices = Move.filterArray(gamemode);
-
-        System.out.println(p1Choice);
-        System.out.println(p2Choice);
 
         System.out.println("\n" + player1.getName() + ": " + choices.get(p1Choice-1) + "\n=== vs ===\n" +
                 player2.getName() + ": " + choices.get(p2Choice-1) + "\n");

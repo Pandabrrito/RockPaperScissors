@@ -17,6 +17,7 @@ public class App {
 
     public static void main(String[] args) {
         boolean runGame = true;
+
         while(runGame) {
             Player player1;
             Player player2;
@@ -26,36 +27,7 @@ public class App {
 
             int chosenLife = numberValidator(0, 99);
 
-            System.out.println("Choose game mode:");
-            System.out.println("1 - Classic");
-            System.out.println("2 - RPS-7");
-            System.out.println("3 - RPS-9");
-            System.out.println("4 - RPS-11");
-            System.out.println("5 - RPS-15");
-
-            int availableMoves = 0;
-            switch (numberValidator(1, 5)) {
-                case 1 -> {
-                    availableMoves = 3;
-                    System.out.println("You chose Classic!");
-                }
-                case 2 -> {
-                    availableMoves = 7;
-                    System.out.println("You chose RPS-7!");
-                }
-                case 3 -> {
-                    availableMoves = 9;
-                    System.out.println("You chose RPS-9!");
-                }
-                case 4 -> {
-                    availableMoves = 11;
-                    System.out.println("You chose RPS-11");
-                }
-                case 5 -> {
-                    availableMoves = 15;
-                    System.out.println("You chose RPS-15");
-                }
-            }
+            int availableMoves = getModeAndMoves();
 
             System.out.println("Please enter your name:");
             player1 = new User(scanner.nextLine(), chosenLife);
@@ -89,9 +61,53 @@ public class App {
             String answer = scanner.nextLine().toLowerCase();
             if (answer.equals("n") || answer.equals("no")) {
                 runGame = false;
-                System.out.println("Thanks for playing! Goodbye!");// change that to loop for everything, true until No
+                System.out.println("Thanks for playing! Goodbye!");
             }
         }
 
+    }
+
+    private static int getModeAndMoves() {
+        System.out.println("Choose game mode:");
+        System.out.println("1 - Classic");
+        System.out.println("2 - RPS-7");
+        System.out.println("3 - RPS-9");
+        System.out.println("4 - RPS-11");
+        System.out.println("5 - RPS-15");
+        System.out.println("6 - RPS-25");
+        System.out.println("7 - RPS-101");
+
+        int availableMoves = 0;
+        switch (numberValidator(1, 7)) {
+            case 1 -> {
+                availableMoves = 3;
+                System.out.println("You chose Classic!");
+            }
+            case 2 -> {
+                availableMoves = 7;
+                System.out.println("You chose RPS-7!");
+            }
+            case 3 -> {
+                availableMoves = 9;
+                System.out.println("You chose RPS-9!");
+            }
+            case 4 -> {
+                availableMoves = 11;
+                System.out.println("You chose RPS-11");
+            }
+            case 5 -> {
+                availableMoves = 15;
+                System.out.println("You chose RPS-15");
+            }
+            case 6 -> {
+                availableMoves = 25;
+                System.out.println("You chose RPS-25");
+            }
+            case 7 -> {
+                availableMoves = 101;
+                System.out.println("You chose RPS-101");
+            }
+        }
+        return availableMoves;
     }
 }
